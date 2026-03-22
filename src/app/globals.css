@@ -1,0 +1,109 @@
+@import "video.js/dist/video-js.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS custom properties ───────────────────────────────────────── */
+:root {
+    --neo-bg: #fffdf5;
+    --neo-accent: #ff6b6b;
+    --neo-secondary: #ffd93d;
+    --neo-muted: #c4b5fd;
+}
+
+/* ── Base reset ──────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--neo-bg);
+    color: #000;
+    font-family: var(--font-space-grotesk), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+/* ── Marquee animation (prevents FOUC before Tailwind loads) ─────── */
+@keyframes marquee {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 22s linear infinite;
+}
+
+/* ── Spin slow ───────────────────────────────────────────────────── */
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 12s linear infinite;
+}
+
+/* ── Reduce motion accessibility ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .animate-spin-slow,
+    .animate-bounce,
+    .animate-pulse {
+        animation: none;
+    }
+}
+
+/* ── Video.js style override — hide default UI since we don't use it */
+.video-js .vjs-big-play-button,
+.video-js .vjs-control-bar {
+    display: none !important;
+}
+
+/* ── Scrollbar styling ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+    border-left: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neo-secondary);
+    border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neo-accent);
+}
+
+/* ── Focus rings ─────────────────────────────────────────────────── */
+:focus-visible {
+    outline: 3px solid #000;
+    outline-offset: 2px;
+}
+
+/* ── Selection ────────────────────────────────────────────────────── */
+::selection {
+    background: var(--neo-secondary);
+    color: #000;
+}
